@@ -10,7 +10,7 @@
     "topLevel": { "$ref": "file:./gnds-2.0/topLevel.json" }
   },
   "definitions": {
-    "applicationData": { "$ref": "file:./gnds-2.0/definitions/applicationData.json" }
+    "applicationData": { "$ref": "file:./gnds-2.0/definitions/applicationData.json" },
     "documentations": { "$ref": "file:./gnds-2.0/definitions/documentations.json" },
     "externalFiles": { "$ref": "file:./gnds-2.0/definitions/externalFiles.json" },
     "incompleteReactions": { "$ref": "file:./gnds-2.0/definitions/incompleteReactions.json" },
@@ -23,6 +23,6 @@
     "reactions": { "$ref": "file:./gnds-2.0/definitions/reactions.json" },
     "resonances": { "$ref": "file:./gnds-2.0/definitions/resonances.json" },
     "styles": { "$ref": "file:./gnds-2.0/definitions/styles.json" },
-    "sums": { "$ref": "file:./gnds-2.0/definitions/sums.json" },
+    "sums": { "$ref": "file:./gnds-2.0/definitions/sums.json" }
   }
 }
