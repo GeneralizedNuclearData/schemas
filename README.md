@@ -1,3 +1,5 @@
+[![Build Status](https://travis-ci.com/GeneralizedNuclearData/schemas.svg?branch=master)](https://travis-ci.com/GeneralizedNuclearData/schemas)
+
 # schemas
 Schemas defining the GNDS format. Hosting the schemas in a public place allows anyone to refer to them and a common place to store them.
 
