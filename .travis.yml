@@ -2,10 +2,8 @@ language: python
 
 install:
   - pip install jsonschema
-  - curl https://raw.githubusercontent.com/SchemaStore/schemastore/master/src/schemas/json/schema-draft-v4.json > schema.json
 
-script:
-  - jsonschema schema.json -i json/gnds-2.0.json
+script: ./travis/test.sh
 
 os:
   - linux
