@@ -4,9 +4,9 @@
   "type": "object",
   "properties": {
     "oneOf": [
-      "reactionSuite": { "$ref": "file:./definitions/reactionSuite.json" },
-      "reactions": { "$ref": "file:./definitions/reactions.json" },
-      "particles": { "$ref": "file:./definitions/particles.json" }
+      { "reactionSuite": { "$ref": "file:./definitions/reactionSuite.json" } },
+      { "reactions": { "$ref": "file:./definitions/reactions.json" } },
+      { "particles": { "$ref": "file:./definitions/particles.json" } }
     ]
   }
 }
