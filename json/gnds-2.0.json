@@ -9,5 +9,9 @@
   "properties": {
     "topLevel": { "$ref": "file:./gnds-2.0/topLevel.json" }
   },
-  "definitions": { "$ref": "file:./gnds-2.0/definitions.json" }
+  "definitions": {
+    "reactionSuite": { "$ref": "file:./gnds-2.0/definitions/reactionSuite.json" },
+    "reactions": { "$ref": "file:./gnds-2.0/definitions/reactions.json" },
+    "particles": { "$ref": "file:./gnds-2.0/definitions/particles.json" }
+  }
 }
