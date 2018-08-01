@@ -8,6 +8,12 @@ for file in `find json -name "*.json"`; do
     echo "$file is malformatted"
     ((badfiles++))
   fi
+
+  jsonschema $file
+  if [ $? -ne 0 ]; then 
+    echo "$file is non-compliant"
+    ((badfiles++))
+  fi
 done
 
 echo
@@ -15,5 +21,3 @@ if [ $badfiles -ne 0 ]; then
   echo "$badfiles files were malformatted"
   exit 1
 fi
-
-jsonschema json/gnds-2.0.json
