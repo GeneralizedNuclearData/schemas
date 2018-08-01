@@ -10,17 +10,19 @@
     "topLevel": { "$ref": "file:./gnds-2.0/topLevel.json" }
   },
   "definitions": {
-    "reactionSuite": { "$ref": "file:./gnds-2.0/definitions/reactionSuite.json" },
-    "documentations": { "$ref": "file:./gnds-2.0/definitions/documentations.json" },
-    "particles": { "$ref": "file:./gnds-2.0/definitions/particles.json" },
-    "reactions": { "$ref": "file:./gnds-2.0/definitions/reactions.json" },
-    "externalFiles": { "$ref": "file:./gnds-2.0/definitions/externalFiles.json" },
-    "resonances": { "$ref": "file:./gnds-2.0/definitions/resonances.json" },
-    "orphanProducts": { "$ref": "file:./gnds-2.0/definitions/orphanProducts.json" },
-    "sums": { "$ref": "file:./gnds-2.0/definitions/sums.json" },
-    "reactionComponents": { "$ref": "file:./gnds-2.0/definitions/reactionComponents.json" },
-    "productions": { "$ref": "file:./gnds-2.0/definitions/productions.json" },
-    "incompleteReactions": { "$ref": "file:./gnds-2.0/definitions/incompleteReactions.json" },
     "applicationData": { "$ref": "file:./gnds-2.0/definitions/applicationData.json" }
+    "documentations": { "$ref": "file:./gnds-2.0/definitions/documentations.json" },
+    "externalFiles": { "$ref": "file:./gnds-2.0/definitions/externalFiles.json" },
+    "incompleteReactions": { "$ref": "file:./gnds-2.0/definitions/incompleteReactions.json" },
+    "orphanProducts": { "$ref": "file:./gnds-2.0/definitions/orphanProducts.json" },
+    "particles": { "$ref": "file:./gnds-2.0/definitions/particles.json" },
+    "productions": { "$ref": "file:./gnds-2.0/definitions/productions.json" },
+    "reaction": { "$ref": "file:./gnds-2.0/definitions/reaction.json" },
+    "reactionComponents": { "$ref": "file:./gnds-2.0/definitions/reactionComponents.json" },
+    "reactionSuite": { "$ref": "file:./gnds-2.0/definitions/reactionSuite.json" },
+    "reactions": { "$ref": "file:./gnds-2.0/definitions/reactions.json" },
+    "resonances": { "$ref": "file:./gnds-2.0/definitions/resonances.json" },
+    "styles": { "$ref": "file:./gnds-2.0/definitions/styles.json" },
+    "sums": { "$ref": "file:./gnds-2.0/definitions/sums.json" },
   }
 }

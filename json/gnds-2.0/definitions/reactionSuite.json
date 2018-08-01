@@ -20,12 +20,10 @@
       ]
     },
     "elements": {
-      "allOf": [
-        { "$ref": "styles.json" },
-        { "$ref": "#/definitions/documentations" },
-        { "$ref": "#/definitions/particles" }
-      ],
       "anyOf": [
+        { "$ref": "#/definitions/styles" },
+        { "$ref": "#/definitions/documentations" },
+        { "$ref": "#/definitions/particles" },
         { "$ref": "#/definitions/reactions" },
         { "$ref": "#/definitions/externalFiles" },
         { "$ref": "#/definitions/resonances" },
@@ -35,7 +33,8 @@
         { "$ref": "#/definitions/productions" },
         { "$ref": "#/definitions/incompleteReactions" },
         { "$ref": "#/definitions/applicationData" }
-      ]
+      ],
+      "required": [ "styles", "documentations", "particles" ]
     }
   }
 }

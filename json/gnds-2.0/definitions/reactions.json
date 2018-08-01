@@ -1,5 +1,15 @@
 {
   "$schema": "http://json-schema.org/draft-07/schema#",
   "id": "http:/github.com/generalizednucleardata/schemas/blob/master/json/gnds-2.0/description/reactions.json",
-  "type": "object"
+  "type": "object",
+  "reactions": {
+    "description": "List of reaction objects",
+    "type": "array",
+    "items": {
+      "type": { "$ref": "#/definitions/reaction" }
+    },
+    "additionalItems": {
+      "$ref": "#/definitions/documentations"
+    }
+  }
 }
