@@ -1,7 +1,9 @@
 language: python
 
-install:
+before_install:
   - if [[ "$TRAVIS_OS_NAME" = "osx" ]]; then brew update && brew upgrade python3; fi
+
+install:
   - pip install jsonschema
   - curl https://raw.githubusercontent.com/SchemaStore/schemastore/master/src/schemas/json/schema-draft-v4.json > schema.json
 
