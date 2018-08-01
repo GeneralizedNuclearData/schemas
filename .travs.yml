@@ -9,5 +9,10 @@ script:
   - jsonschema schema.json -i gnds-2.0.json
 
 os:
-  - linux
-  - osx
+- linux
+- osx
+
+matrix:
+  include:
+    - os: linux
+    - os: osx
