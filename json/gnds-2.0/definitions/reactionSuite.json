@@ -7,7 +7,7 @@
     "description": "All reactions involving the same combination of projectile and target, groupled together inside a single evaluation.",
     "attributes": {
       "type": "object",
-      "allOf": [
+      "anyOf": [
         { "projectile": { "type": "string" } },
         { "target": { "type": "string" } },
         { "evaluation": { "type": "string" } },
@@ -17,7 +17,8 @@
           "oneOf": ["lab", "centerOfMass"]
           } 
         }
-      ]
+      ],
+      "required": [ "projectile", "target", "evaluation", "format", "projectileFrame" ]
     },
     "elements": {
       "anyOf": [

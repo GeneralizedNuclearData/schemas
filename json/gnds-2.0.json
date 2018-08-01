@@ -24,6 +24,7 @@
     "reactionComponents": { "$ref": "file:./gnds-2.0/definitions/reactionComponents.json" },
     "reactionSuite": { "$ref": "file:./gnds-2.0/definitions/reactionSuite.json" },
     "reactions": { "$ref": "file:./gnds-2.0/definitions/reactions.json" },
+    "reaction": { "$ref": "file:./gnds-2.0/definitions/reaction.json" },
     "resonances": { "$ref": "file:./gnds-2.0/definitions/resonances.json" },
     "styles": { "$ref": "file:./gnds-2.0/definitions/styles.json" },
     "sums": { "$ref": "file:./gnds-2.0/definitions/sums.json" }
