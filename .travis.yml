@@ -3,7 +3,7 @@ language: python
 install:
   - pip install jsonschema
 
-script: ./travis/test.sh
+script: .travis/test.sh
 
 os:
   - linux
