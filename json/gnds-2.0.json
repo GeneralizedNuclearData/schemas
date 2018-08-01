@@ -2,5 +2,15 @@
   "$schema": "http://json-schema.org/draft-07/schema#",
   "id": "http:/github.com/generalizednucleardata/schemas/blob/master/json/gnds-2.0.json",
   "type": "object",
-  "version": 2.0
+  "version": 2.0,
+  "title": "GNDS JSON object",
+  "description": "Schema for a GNDS JSON object",
+  "oneOf" : [
+    { "reactionSuite": { "$ref": "file:./definitions/reactionSuite.json" } }
+  ],
+  "definitions": {
+    "reactionSuite": { "$ref": "file:./definitions/reactionSuite.json" },
+    "reactions": { "$ref": "file:./definitions/reactions.json" },
+    "particles": { "$ref": "file:./definitions/particles.json" }
+  }
 }
