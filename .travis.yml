@@ -8,9 +8,7 @@ install:
   - curl https://raw.githubusercontent.com/SchemaStore/schemastore/master/src/schemas/json/schema-draft-v4.json > schema.json
 
 script:
-  - pwd
-  - ls
-  - jsonschema schema.json -i gnds-2.0.json
+  - jsonschema schema.json -i json/gnds-2.0.json
 
 os:
 - linux
