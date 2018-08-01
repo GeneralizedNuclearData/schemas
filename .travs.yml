@@ -1,3 +1,5 @@
+language: python
+
 install:
   - if [[ "$TRAVIS_OS_NAME" = "osx" ]]; then brew update && brew upgrade python3; fi
   - pip install jsonschema
@@ -5,8 +7,6 @@ install:
 
 script:
   - jsonschema schema.json -i gnds-2.0.json
-
-language: python
 
 os:
   - linux
