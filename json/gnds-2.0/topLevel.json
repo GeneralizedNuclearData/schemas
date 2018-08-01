@@ -1,0 +1,13 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "http:/github.com/generalizednucleardata/schemas/blob/master/json/gnds-2.0/definitions/reactionSuite.json",
+  "type": "object",
+  "properties": {
+    "oneOf": [
+      "reactionSuite": { "$ref": "file:./definitions/reactionSuite.json" },
+      "reactions": { "$ref": "file:./definitions/reactions.json" },
+      "particles": { "$ref": "file:./definitions/particles.json" }
+    ]
+  }
+}
+

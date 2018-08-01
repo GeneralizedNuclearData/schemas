@@ -17,6 +17,6 @@ if [ $badfiles -ne 0 ]; then
 fi
 
 # Get schema against which we can test
-curl https://raw.githubusercontent.com/SchemaStore/schemastore/master/src/schemas/json/schema-draft-v4.json > schema.json
+curl http://json-schema.org/draft-07/schema > schema.json
 
 jsonschema schema.json -i json/gnds-2.0.json

@@ -1,25 +1,46 @@
 {
   "$schema": "http://json-schema.org/draft-07/schema#",
-  "id": "http:/github.com/generalizednucleardata/schemas/blob/master/json/gnds-2.0/description/reactionSuite.json",
+  "$id": "http:/github.com/generalizednucleardata/schemas/blob/master/json/gnds-2.0/definitions/reactionSuite.json",
   "type": "object",
   "reactionSuite": {
     "title": "reactionSuite",
-    "description": "Description for reactionSuite",
+    "description": "All reactions involving the same combination of projectile and target, groupled together inside a single evaluation.",
     "attributes": {
       "allOf": [
-        { "projectile": {
+        "projectile": {
+          "type": "string"
         },
-        "target": "string"
+        "target": {
+          "type": "string"
+        },
+        "evaluation": {
+          "type": "string"
+        },
+        "format": {
+          "type": "string"
+        },
+        "projectileFrame": {
+          "type": "string",
+          "oneOf": ["lab", "centerOfMass"]
         }
       ]
     },
     "elements": {
       "allOf": [
+        { "$ref": "#/definitions/styles" },
         { "$ref": "#/definitions/documentations" },
         { "$ref": "#/definitions/particles" }
       ],
       "anyOf": [
-        { "$ref": "#/definitions/reactions" }
+        { "$ref": "#/definitions/reactions" },
+        { "$ref": "#/definitions/externalFiles" },
+        { "$ref": "#/definitions/resonances" },
+        { "$ref": "#/definitions/orphanProducts" },
+        { "$ref": "#/definitions/sums" },
+        { "$ref": "#/definitions/reactionComponents" },
+        { "$ref": "#/definitions/productions" },
+        { "$ref": "#/definitions/incompleteReactions" },
+        { "$ref": "#/definitions/applicationData" }
       ]
     }
   }
