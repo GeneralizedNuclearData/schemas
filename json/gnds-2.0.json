@@ -5,9 +5,12 @@
   "version": 2.0,
   "title": "GNDS JSON object",
   "description": "Schema for a GNDS JSON object",
-  "required": [ "topLevel" ],
-  "properties": {
-    "topLevel": { "$ref": "file:./gnds-2.0/topLevel.json" }
+  "items": {
+    "oneOf": [
+      { "reactionSuite": { "$ref": "file:./definitions/reactionSuite.json" } },
+      { "covarianceSuite": { "$ref": "file:./definitions/covarianceSuite.json" } },
+      { "metaEvaluation": { "$ref": "file:./definitions/metaEvaluation.json" } }
+    ]
   },
   "definitions": {
     "applicationData": { "$ref": "file:./gnds-2.0/definitions/applicationData.json" },
