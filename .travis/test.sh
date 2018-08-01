@@ -16,7 +16,4 @@ if [ $badfiles -ne 0 ]; then
   exit 1
 fi
 
-# Get schema against which we can test
-curl http://json-schema.org/draft-07/schema > schema.json
-
-jsonschema schema.json -i json/gnds-2.0.json
+jsonschema json/gnds-2.0.json
