@@ -6,6 +6,7 @@
     "title": "reactionSuite",
     "description": "All reactions involving the same combination of projectile and target, groupled together inside a single evaluation.",
     "attributes": {
+      "type": "object",
       "allOf": [
         { "projectile": { "type": "string" } },
         { "target": { "type": "string" } },
@@ -14,12 +15,13 @@
         { "projectileFrame": {
           "type": "string",
           "oneOf": ["lab", "centerOfMass"]
-        } }
+          } 
+        }
       ]
     },
     "elements": {
       "allOf": [
-        { "$ref": "#/definitions/styles" },
+        { "$ref": "styles.json" },
         { "$ref": "#/definitions/documentations" },
         { "$ref": "#/definitions/particles" }
       ],
