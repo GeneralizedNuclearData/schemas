@@ -1,17 +1,26 @@
 {
   "$schema": "http://json-schema.org/draft-07/schema#",
-  "id": "http:/github.com/generalizednucleardata/schemas/blob/master/json/gnds-2.0.json",
+  "$id": "http:/github.com/generalizednucleardata/schemas/blob/master/json/gnds-2.0.json",
   "type": "object",
   "version": 2.0,
   "title": "GNDS JSON object",
   "description": "Schema for a GNDS JSON object",
-  "items": {
-    "oneOf": [
-      { "reactionSuite": { "$ref": "file:./definitions/reactionSuite.json" } },
-      { "covarianceSuite": { "$ref": "file:./definitions/covarianceSuite.json" } },
-      { "metaEvaluation": { "$ref": "file:./definitions/metaEvaluation.json" } }
-    ]
-  },
+  "oneOf": [
+    { 
+      "properties": {
+        "reactionSuite": { "$ref": "file:./gnds-2.0/definitions/reactionSuite.json" }
+      }
+    },
+    { 
+      "properties": {
+        "covarianceSuite": { "$ref": "file:./gnds-2.0/definitions/covarianceSuite.json" }
+      }
+    },
+    { "properties": {
+        "metaEvaluation": { "$ref": "file:./gnds-2.0/definitions/metaEvaluation.json" }
+      }
+    }
+  ],
   "definitions": {
     "applicationData": { "$ref": "file:./gnds-2.0/definitions/applicationData.json" },
     "documentations": { "$ref": "file:./gnds-2.0/definitions/documentations.json" },
