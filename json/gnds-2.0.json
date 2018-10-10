@@ -6,13 +6,148 @@
   "title": "GNDS JSON schema",
   "description": "Schema for a GNDS JSON object",
   "properties":{
+    "crossSection": {"$ref": "#/definitions/crossSection" },
+    "functional": {"$ref": "#/definitions/functional" },
+    "reaction": {"$ref": "#/definitions/reaction" },
     "text": {"$ref": "#/definitions/text" },
-    "XYs1d": {"$ref": "#definitions/XYs1d" },
+    "XYs1d": {"$ref": "#/definitions/XYs1d" },
     "values": {"$ref": "#/definitions/values" }
   },
   "definitions":{
-      "text": { "$ref": "file: ./gnds-2.0/definitions/text.json" },
-      "XYs1d": { "$ref": "file: ./gnds-2.0/definitions/XYs1d.json" },
-      "values": { "$ref": "file: ./gnds-2.0/definitions/values.json" }
+    "crossSection": {
+      "properties": {
+        "eval": { 
+          "anyOf": [
+            { "$ref": "#definitions/XYs1d" },
+            { "$ref": "#definitions/regions" },
+            { "$ref": "#definitions/urrProbabilityTable" },
+            { "$ref": "#definitions/resonanceRegionLink" }
+          ]
+        },
+        "documentation": { "$ref": "#/definitions/documentation" }
+      },
+      "required": [ "eval" ],
+      "patternProperties": {
+        "*": {
+          "anyOf": [
+            { "$ref": "#definitions/XYs1d" },
+            { "$ref": "#definitions/regions" },
+            { "$ref": "#definitions/urrProbabilityTable" },
+            { "$ref": "#definitions/resonanceRegionLink" }
+          ]
+        }
+      }
+    },
+    "functional": {
+      "description": "Functional node (container).",
+      "type": "object",
+      "properties": {
+        "value": {
+          "type": "number",
+          "attribute": true
+        },
+        "valueType": {
+          "type": "string",
+          "enum": [ "Float64", "Integer64", "Integer32", "UInteger32", "Fraction32" ],
+          "default": "Float64",
+          "attribute": true
+        },
+        "axes": { "$ref": "#/definitions/axes" },
+        "uncertainty": { "$ref": "#/definitions/uncertainty" }
+      }
+    },
+    "reaction": {
+      "description": "A single reaction",
+      "type": "object",
+      "allOf": [
+        {
+          "properties": {
+            "ENDF_MT": {
+              "type": "integer",
+              "attribute": true
+            },
+            "label": {
+              "type": "string",
+              "attribute": true
+            },
+            "fissionGenre": {
+              "type": "string",
+              "attribute": true
+            }
+          },
+          "required": [ "label", "ENDF_MT" ]
+        },
+        { "$ref": "#/definitions/crossSection" },
+        { "$ref": "#/definitions/doubleDifferentialCrossSection" },
+        { "$ref": "#/definitions/outputChannel" }
+      ]
+    },
+    "text": {
+      "description": "Store a sequence of characters",
+      "type": "object",
+      "properties": {
+        "encoding": {
+          "type": "string",
+          "enum": [ "ascii", "utf8" ],
+          "default": "ascii",
+          "atrribute": true
+        },
+        "markup": {
+          "type": "string",
+          "enum": [ "none", "xml", "xhtml", "latex" ],
+          "default": "none",
+          "attribute": true
+        },
+        "text": {
+          "type": "string"
+        }
+      }
+    },
+    "XYs1d": {
+      "description": "A tabulated uni-variate functional",
+      "type": "object",
+      "allOf": [
+        { 
+          "properties":{
+            "interpolation": {
+              "type": "string",
+              "enum": [ "lin-lin", "lin-log", "log-log", "flat" ],
+              "default": "lin-lin",
+              "attribute": true
+            }
+          } 
+        },
+        { "$ref": "#/definitions/values" },
+        {"$ref": "#/definitions/functional" }
+      ]
+    },
+    "values": {
+      "description": "Store a sequence of numerical values",
+      "type": "object",
+      "properties":{
+        "valueType":{
+          "type": "string",
+          "enum": [ "Float64", "Integer64", "Integer32", "UInteger32", "Fraction32" ],
+          "default": "Float64",
+          "attribute": true
+        },
+        "start": {
+          "type": "integer",
+          "minimum": 0,
+          "default": 0,
+          "atrribute": true
+        },
+        "size": {
+          "type": "integer",
+          "minimum": 0,
+          "default": 0,
+          "atrribute": true
+        },
+        "values":{
+          "type": "array",
+          "items": { "type": "integer" }
+        }
+      }
+    }
   }
 }

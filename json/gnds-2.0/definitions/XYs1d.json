@@ -1,13 +1,16 @@
 {
   "description": "A tabulated uni-variate functional",
   "type": "object",
-  "properties":{
-    "interpolation": {
-      "type": "string",
-      "enum": [ "lin-lin", "lin-log", "log-log", "flat" ],
-      "default": "lin-lin",
-      "attribute": true
+  "allOf": [
+    "properties":{
+      "interpolation": {
+        "type": "string",
+        "enum": [ "lin-lin", "lin-log", "log-log", "flat" ],
+        "default": "lin-lin",
+        "attribute": true
+      }
     },
-    "values": { "$ref": "#/definitions/values" }
-  }
+    { "$ref": "#/definitions/values" },
+    {"$ref": "#/definitions/functional" }
+  ]
 }

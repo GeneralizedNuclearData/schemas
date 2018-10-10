@@ -5,6 +5,7 @@
     "valueType":{
       "type": "string",
       "enum": [ "Float64", "Integer64", "Integer32", "UInteger32", "Fraction32" ],
+      "default": "Float64",
       "attribute": true
     },
     "start": {

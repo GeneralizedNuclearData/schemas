@@ -1,0 +1,18 @@
+{
+  "description": "Functional node (container).",
+  "type": "object",
+  "properties": {
+    "value": {
+      "type": "number",
+      "attribute": true
+    },
+    "valueType": {
+      "type": "string",
+      "enum": [ "Float64", "Integer64", "Integer32", "UInteger32", "Fraction32" ],
+      "default": "Float64",
+      "attribute": true
+    },
+    "axes": { "$ref": "#/definitions/axes" },
+    "uncertainty": { "$ref": "#/definitions/uncertainty" }
+  }
+}
