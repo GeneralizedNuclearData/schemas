@@ -28,7 +28,7 @@
       },
       "required": [ "eval" ],
       "patternProperties": {
-        "*": {
+        ".*": {
           "anyOf": [
             { "$ref": "#definitions/XYs1d" },
             { "$ref": "#definitions/regions" },
