@@ -1,0 +1,35 @@
+{
+  "type": "object",
+  "oneOf": [
+    {
+      "properties": {
+        "pairs": {
+          "type": "array",
+          "items": {
+            "type": "array",
+            "items": {
+              "type": "number"
+            },
+            "minItems": 2,
+            "maxItems": 2
+          }
+        }
+      },
+      "required": ["pairs"]
+    },
+    {
+      "properties": {
+        "x": {
+          "type": "array",
+          "items": { "type": "number" }
+        },
+        "y": {
+          "type": "array",
+          "items": { "type": "number" }
+        }
+      },
+      "required": ["x", "y"]
+    }
+  ]
+}
+

@@ -1,0 +1,13 @@
+{
+  "type": "object",
+  "properties":{
+    "valueType":{
+      "type": "string",
+      "enum": [ "Float64", "Integer64" ]
+    },
+    "elements":{
+      "type": "array",
+      "items": { "type": "integer" }
+    }
+  }
+}
