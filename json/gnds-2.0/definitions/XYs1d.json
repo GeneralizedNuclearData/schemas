@@ -1,35 +1,13 @@
 {
+  "description": "A tabulated uni-variate functional",
   "type": "object",
-  "oneOf": [
-    {
-      "properties": {
-        "pairs": {
-          "type": "array",
-          "items": {
-            "type": "array",
-            "items": {
-              "type": "number"
-            },
-            "minItems": 2,
-            "maxItems": 2
-          }
-        }
-      },
-      "required": ["pairs"]
+  "properties":{
+    "interpolation": {
+      "type": "string",
+      "enum": [ "lin-lin", "lin-log", "log-log", "flat" ],
+      "default": "lin-lin",
+      "attribute": true
     },
-    {
-      "properties": {
-        "x": {
-          "type": "array",
-          "items": { "type": "number" }
-        },
-        "y": {
-          "type": "array",
-          "items": { "type": "number" }
-        }
-      },
-      "required": ["x", "y"]
-    }
-  ]
+    "values": { "$ref": "#/definitions/values" }
+  }
 }
-

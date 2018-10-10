@@ -1,11 +1,25 @@
 {
+  "description": "Store a sequence of numerical values",
   "type": "object",
   "properties":{
     "valueType":{
       "type": "string",
-      "enum": [ "Float64", "Integer64" ]
+      "enum": [ "Float64", "Integer64", "Integer32", "UInteger32", "Fraction32" ],
+      "attribute": true
     },
-    "elements":{
+    "start": {
+      "type": "integer",
+      "minimum": 0,
+      "default": 0,
+      "atrribute": true
+    },
+    "size": {
+      "type": "integer",
+      "minimum": 0,
+      "default": 0,
+      "atrribute": true
+    },
+    "values":{
       "type": "array",
       "items": { "type": "integer" }
     }

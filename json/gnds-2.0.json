@@ -6,11 +6,13 @@
   "title": "GNDS JSON schema",
   "description": "Schema for a GNDS JSON object",
   "properties":{
+    "text": {"$ref": "#/definitions/text" },
     "XYs1d": {"$ref": "#definitions/XYs1d" },
     "values": {"$ref": "#/definitions/values" }
   },
   "definitions":{
-      "XYs1d"  : { "$ref" : "file : ./gnds-2.0/definitions/XYs1d.json" },
-      "values" : { "$ref" : "file : ./gnds-2.0/definitions/values.json" }
+      "text": { "$ref": "file: ./gnds-2.0/definitions/text.json" },
+      "XYs1d": { "$ref": "file: ./gnds-2.0/definitions/XYs1d.json" },
+      "values": { "$ref": "file: ./gnds-2.0/definitions/values.json" }
   }
 }
