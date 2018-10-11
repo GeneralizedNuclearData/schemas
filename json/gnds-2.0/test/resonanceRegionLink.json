@@ -1,0 +1,8 @@
+{
+  "resonanceRegionLink": {
+    "emin": "20 MeV",
+    "emax": "200 MeV",
+    "href": "somewhere else",
+    "representation": "eval"
+  }
+}

@@ -6,6 +6,14 @@
   "title": "GNDS JSON schema",
   "description": "Schema for a GNDS JSON object",
   "properties":{
+    "constant": {"$ref": "#/definitions/constant" },
+    "crossSection": {"$ref": "#/definitions/crossSection" },
+    "documentation": {"$ref": "#/definitions/documentation" },
+    "multiplicity": {"$ref": "#/definitions/multiplicity" },
+    "products": {"$ref": "#/definitions/products" },
+    "reaction": {"$ref": "#/definitions/reaction" },
+    "regions1d": {"$ref": "#/definitions/regions1d" },
+    "resonanceRegionLink": {"$ref": "#/definitions/resonanceRegionLink" },
     "XYs1d": {"$ref": "#/definitions/XYs1d" },
     "uncertainties": {"$ref": "#/definitions/uncertainties" }
   },
@@ -39,27 +47,41 @@
       "required": [ "label" ],
       "additionalProperties": false
     },
-    "crossSection": {
+    "constant": {
+      "description": "Node to hold a single value",
+      "type": "object",
       "properties": {
-        "eval": { 
-          "anyOf": [
-            { "$ref": "#definitions/XYs1d" },
-            { "$ref": "#definitions/regions1d" },
-            { "$ref": "#definitions/urrProbabilityTable" },
-            { "$ref": "#definitions/resonanceRegionLink" }
-          ]
+        "name": {
+          "type": "string",
+          "attribute": true
         },
-        "documentation": { "$ref": "#/definitions/documentation" }
+        "value": {
+          "type": "string",
+          "attribute": true
+        }
       },
-      "required": [ "eval" ],
-      "additionalProperties": {
+      "required": [ "name", "value" ],
+      "additionalProperties": false
+    },
+    "constant1d": {
+      "description": "constant1d",
+      "type": "object"
+    },
+    "crossSection": {
+      "description": "Cross section data as a function of energy",
+      "type": "array",
+      "items": {
         "anyOf": [
           { "$ref": "#definitions/XYs1d" },
           { "$ref": "#definitions/regions1d" },
-          { "$ref": "#definitions/urrProbabilityTable" },
-          { "$ref": "#definitions/resonanceRegionLink" }
+          { "$ref": "#definitions/resonanceRegionLink" },
+          { "$ref": "#/definitions/documentation" }
         ]
       }
+    },
+    "documentation": {
+      "description": "Documentation node",
+      "type": "object"
     },
     "functional": {
       "description": "Functional node (container).",
@@ -108,6 +130,101 @@
       "required": [ "label", "grid" ],
       "additionalProperties": false
     },
+    "multiplicity": {
+      "description": "How many of a product are emitted in a reaction",
+      "type": "object",
+      "oneOf": [
+        {
+          "properties":{
+            "XYs1d": { "$ref": "#/definitions/XYs1d" }
+          },
+          "required": [ "XYs1d" ]
+        },
+        {
+          "properties":{
+            "constant": { "$ref": "#/definitions/constant" }
+          },
+          "required": [ "constant" ]
+        },
+        {
+          "properties":{
+            "polynomial1d": { "$ref": "#/definitions/polynomial1d" }
+          },
+          "required": [ "polynomial1d" ]
+        },
+        { 
+          "properties":{
+            "reference": { "$ref": "#/definitions/reference" }
+          },
+          "required": [ "reference" ]
+        },
+        {
+          "properties":{
+            "regions1d": { "$ref": "#/definitions/regions1d" }
+          },
+          "required": [ "regions1d" ]
+        }
+      ]
+    },
+    "outputChannel": {
+      "description": "Secondary information for a reaction",
+      "type": "object",
+      "properties": {
+        "genre": {
+          "type": "string",
+          "enum": [ "twoBody", "NBody" ],
+          "attribute": true
+        },
+        "Q": { "$ref": "#/definitions/Q" },
+        "products": { "$ref": "#/definitions/products" }
+      },
+      "additionalProperties": false
+    },
+    "polynomial1d": {
+      "description": "1-dimensional polynomial expansion",
+      "type": "object"
+    },
+    "product": {
+      "description": "Secondary product from a reaction",
+      "type": "object",
+      "properties": {
+        "pid": {
+          "type": "string",
+          "attribute": true
+        },
+        "label": {
+          "type": "string",
+          "attribute": true
+        },
+        "documentation": { "$ref": "#/definitions/documentation" },
+        "distributions": { "$ref": "#/definitions/distributions" },
+        "outputChannel": { "$ref": "#/definitions/outputChannel" },
+        "multiplicity": { "$ref": "#/definitions/multiplicity" }
+      },
+      "required": [ "pid", "label", "multiplicity", "distributions" ],
+      "additionalProperties": false
+    },
+    "products": {
+      "description": "An array of secondary products from a reaction",
+      "type": "object",
+      "properties": {
+        "Q": { "$ref": "#/definitions/constant" },
+        "kinematicType": {
+          "type": "string",
+          "enum": [ "two-body", "uncorrelated", "correlated", "fission" ],
+          "default": "two-body",
+          "attribute": true
+        },
+        "products":{
+          "type": "array",
+          "items": { "$ref": "#/definitions/product" },
+          "minItems": 1
+        },
+        "documentation": { "$ref": "#/definitions/documentation" }
+      },
+      "required": [ "products" ],
+      "additionalProperties": false
+    },
     "reaction": {
       "description": "A single reaction",
       "type": "object",
@@ -130,25 +247,78 @@
           "required": [ "label", "ENDF_MT" ]
         },
         { "$ref": "#/definitions/crossSection" },
-        { "$ref": "#/definitions/doubleDifferentialCrossSection" },
         { "$ref": "#/definitions/outputChannel" }
       ]
     },
     "reactions": {
-      "type": "array",
-      "items": { "$ref": "#/definitions/reaction" },
-      "minItems": 1
+      "description": "Array of all reactions",
+      "type": "object",
+      "properties": {
+        "documentation": { "$ref": "#/definitions/documentation" },
+        "reactions": {
+          "type": "array",
+          "items": { "$ref": "#/definitions/reaction" },
+          "minItems": 1
+        }
+      },
+      "required": [ "reactions" ],
+      "additionalProperties": false
+    },
+    "reference": {
+      "description": "reference",
+      "type": "object",
+      "properties": {
+        "href": {
+          "type": "string",
+          "attribute": true
+        },
+        "label": {
+          "type": "string", 
+          "attribute": true
+        }
+      },
+      "required": [ "href" ],
+      "additionalProperties" : false
     },
     "resonanceRegionLink": {
-      "type": "object"
+      "description": "Used to establish a link from cross section to an element in the resonance region.",
+      "type": "object",
+      "properties": {
+        "href": {
+          "type": "string",
+          "attribute": true
+        },
+        "emin": {
+          "type": "string",
+          "attribute": true
+        },
+        "emax": {
+          "type": "string",
+          "attribute": true
+        },
+        "representation": {
+          "type": "string", 
+          "attribute": true
+        }
+      },
+      "required": [ "href" ],
+      "additionalProperties" : false
     },
     "regions1d": {
       "description": "A region",
       "type": "object",
       "allOf": [
+        { "$ref": "#/definitions/functional" },
         {
           "properties": {
-            "XYs1d": { "$ref": "#/definitions/XYs1d" }
+            "XYs1d": { "$ref": "#/definitions/XYs1d" },
+            "axes": { "$ref": "#/definitions/axes" },
+            "uncertainties": { "$ref": "#/definitions/uncertainties" },
+            "uncertainty": { "$ref": "#/definitions/uncertainty" }
+          },
+          "dependencies": {
+            "uncertainties": { "not": { "required": [ "uncertainty" ] } },
+            "uncertainty": { "not": { "required": [ "uncertainties" ] } }
           }
         }
       ]

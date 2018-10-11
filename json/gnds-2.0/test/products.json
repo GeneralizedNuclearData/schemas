@@ -1,0 +1,20 @@
+{
+  "products": {
+    "documentation": { },
+    "kinematicType": "two-body",
+    "Q": {
+      "name": "Q",
+      "value": "20 eV"
+    },
+    "products": [
+      { 
+        "pid": "n",
+        "label": "1"
+      },
+      { 
+        "pid": "H1",
+        "label": "1"
+      }
+    ]
+  }
+}

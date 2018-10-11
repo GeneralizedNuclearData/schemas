@@ -1,16 +1,78 @@
 {
-  "crossSection": {
-    "eval": {
+  "crossSection": [
+    {
       "interpolation": "lin-log",
       "pairs": {
         "values": [1,4,6]
       }
     },
-    "recon": {
+    {
       "interpolation": "flat",
       "pairs": {
         "values": [2,4,6]
       }
+    },
+    {
+      "XYs1d": {
+        "interpolation": "lin-lin",
+        "pairs": {
+          "values": [1,2,3,4]
+        }
+      },
+      "axes": [
+        { 
+          "label": "energy_in",
+          "unit": "eV"
+        },
+        {
+          "label": "crossSection",
+          "unit": "barn"
+        },
+        {
+          "label": "crossSection",
+          "unit": "barn"
+        }
+      ],
+      "uncertainties": [
+        {
+          "style": "eval",
+          "type": "variance",
+          "pdf": "log-normal",
+          "uncertainty": {
+            "pairs": {
+              "values": [1,2,3,4]
+            }
+          }
+        },
+        {
+          "style": "recon",
+          "type": "confidence-interval",
+          "pdf": 0.75,
+          "uncertainty": {
+            "pairs": {
+              "values": [1,2,3,4]
+            }
+          }
+        },
+        {
+          "style": "ogre",
+          "type": "covariance",
+          "uncertainty": {
+            "pairs": {
+              "values": [1,2,3,4]
+            }
+          }
+        },
+        {
+          "style": "eval",
+          "pdf": "normal",
+          "uncertainty": {
+            "pairs": {
+              "values": [1,2,3,4]
+            }
+          }
+        }
+      ]
     }
-  }
+  ]
 }
