@@ -6,9 +6,9 @@
   "title": "GNDS JSON schema",
   "description": "Schema for a GNDS JSON object",
   "properties":{
-    "axes": {"$ref": "#/definitions/axes" }
+    "XYs1d": {"$ref": "#/definitions/XYs1d" },
+    "uncertainties": {"$ref": "#/definitions/uncertainties" }
   },
-  "required": [ "axes" ],
   "definitions": {
     "axes": {
       "description": "Mechanism for providing label an unit for every axis.",
@@ -20,7 +20,8 @@
         {
           "items": { "$ref": "#/definitions/grid" }
         }
-      ]
+      ],
+      "minItems": 2
     },
     "axis": {
       "description": "label and unit for each axis",
@@ -72,6 +73,10 @@
           "type": "string",
           "enum": [ "Float64", "Integer64", "Integer32", "UInteger32", "Fraction32" ],
           "default": "Float64",
+          "attribute": true
+        },
+        "label": {
+          "type": "string",
           "attribute": true
         }
       }
@@ -130,10 +135,9 @@
       ]
     },
     "reactions": {
-      "type": "object",
-      "patternProperties": {
-        ".*": { "$ref": "#/definitions/reaction" }
-      }
+      "type": "array",
+      "items": { "$ref": "#/definitions/reaction" },
+      "minItems": 1
     },
     "resonanceRegionLink": {
       "type": "object"
@@ -169,6 +173,57 @@
           "type": "string"
         }
       }
+    },
+    "uncertainties": {
+      "description": "Array of uncertainty data",
+      "type": "array",
+      "items": { "$ref": "#/definitions/uncertainty" },
+      "minItems": 1
+    },
+    "uncertainty": {
+      "description": "Uncertainty data",
+      "type": "object",
+      "properties": {
+        "style": {
+          "type": "string",
+          "attribute": true
+        },
+        "type": {
+          "type": "string",
+          "enum": [ "variance", "variance+", "variance-", "covariance", 
+            "confidence-interval" ],
+            "default": "variance",
+            "attribute": true
+        },
+        "pdf": {
+          "oneOf": [
+            {
+              "type": "string",
+              "enum": [ "normal", "log-normal" ],
+              "default": "normal"
+            },
+            {
+              "type": "number",
+              "minimum": 0,
+              "maximum": 1
+            }
+          ],
+          "attribute": true
+        },
+        "relation": {
+          "type": "string",
+          "enum": [ "absolute", "offset", "relative", "percent" ],
+          "default": "absolute",
+          "attribute": true
+        },
+        "uncertainty": {
+          "oneOf": [
+            { "$ref": "#/definitions/XYs1d" }
+          ]
+        }
+      },
+      "required": [ "uncertainty" ],
+      "additionalProperties": false
     },
     "urrProbabilityTable": {
       "type": "object"
@@ -207,7 +262,8 @@
       "description": "A tabulated uni-variate functional",
       "type": "object",
       "allOf": [
-        { 
+        { "$ref": "#/definitions/functional" },
+        {
           "properties":{
             "interpolation": {
               "type": "string",
@@ -216,12 +272,16 @@
               "attribute": true
             },
             "pairs": { "$ref": "#/definitions/values" },
-            "axes": { "$ref": "#/definitions/axes" }
-          } ,
+            "axes": { "$ref": "#/definitions/axes" },
+            "uncertainties": { "$ref": "#/definitions/uncertainties" },
+            "uncertainty": { "$ref": "#/definitions/uncertainty" }
+          },
           "required": [ "pairs" ],
-          "additionalProperties": false
-        },
-        { "$ref": "#/definitions/functional" }
+          "dependencies": {
+            "uncertainties": { "not": { "required": [ "uncertainty" ] } },
+            "uncertainty": { "not": { "required": [ "uncertainties" ] } }
+          }
+        }
       ]
     }
   }

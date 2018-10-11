@@ -1,0 +1,42 @@
+{
+  "uncertainties": [
+    {
+      "style": "eval",
+      "type": "variance",
+      "pdf": "log-normal",
+      "uncertainty": {
+        "pairs": {
+          "values": [1,2,3,4]
+        }
+      }
+    },
+    {
+      "style": "recon",
+      "type": "confidence-interval",
+      "pdf": 0.75,
+      "uncertainty": {
+        "pairs": {
+          "values": [1,2,3,4]
+        }
+      }
+    },
+    {
+      "style": "ogre",
+      "type": "covariance",
+      "uncertainty": {
+        "pairs": {
+          "values": [1,2,3,4]
+        }
+      }
+    },
+    {
+      "style": "eval",
+      "pdf": "normal",
+      "uncertainty": {
+        "pairs": {
+          "values": [1,2,3,4]
+        }
+      }
+    }
+  ]
+}

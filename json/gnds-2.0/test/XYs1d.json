@@ -4,7 +4,29 @@
     "pairs": {
       "values": [1,2,3,4]
     },
-    "axes": {
+    "axes": [
+      { 
+        "label": "energy_in",
+        "unit": "eV"
+      },
+      {
+        "label": "crossSection",
+        "unit": "barn"
+      },
+      {
+        "label": "crossSection",
+        "unit": "barn"
+      }
+    ],
+    "uncertainty": { 
+      "style": "eval",
+      "type": "variance",
+      "pdf": "log-normal",
+      "uncertainty": {
+        "pairs": {
+          "values": [5,6,7,8]
+        }
+      }
     }
   }
 }
