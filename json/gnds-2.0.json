@@ -8,6 +8,7 @@
   "properties":{
     "constant": {"$ref": "#/definitions/constant" },
     "crossSection": {"$ref": "#/definitions/crossSection" },
+    "distributions": {"$ref": "#/definitions/distributions" },
     "documentation": {"$ref": "#/definitions/documentation" },
     "multiplicity": {"$ref": "#/definitions/multiplicity" },
     "products": {"$ref": "#/definitions/products" },
@@ -76,6 +77,20 @@
           { "$ref": "#definitions/regions1d" },
           { "$ref": "#definitions/resonanceRegionLink" },
           { "$ref": "#/definitions/documentation" }
+        ]
+      }
+    },
+    "distributions": {
+      "description": "Array of distributions",
+      "type": "array",
+      "items": { "$ref": "#/definitions/distribution" }
+      "minItems": 1
+    },
+    "distribution": {
+      "description": "Secondary energy-angle distributions"
+      "type": "array",
+      "items": {
+        "anyOf": [
         ]
       }
     },

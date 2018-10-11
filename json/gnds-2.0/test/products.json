@@ -9,11 +9,39 @@
     "products": [
       { 
         "pid": "n",
-        "label": "1"
+        "label": "1",
+        "multiplicity": {
+          "constant": {
+            "name": "Q",
+            "value": "1.0 MeV"
+          }
+        }
       },
       { 
         "pid": "H1",
-        "label": "1"
+        "label": "1",
+        "multiplicity": {
+          "XYs1d": {
+            "interpolation": "lin-lin",
+            "pairs": {
+              "values": [1,2,3,4]
+            },
+            "axes": [
+              { 
+                "label": "energy_in",
+                "unit": "eV"
+              },
+              {
+                "label": "crossSection",
+                "unit": "barn"
+              },
+              {
+                "label": "crossSection",
+                "unit": "barn"
+              }
+            ]
+          }
+        }
       }
     ]
   }
