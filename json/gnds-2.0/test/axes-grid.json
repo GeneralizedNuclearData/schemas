@@ -1,0 +1,20 @@
+
+{
+  "axes": 
+    [
+      { 
+        "label": "energy_in",
+        "unit": "eV",
+        "grid": { "values": [1,2,3] }
+      },
+      {
+        "label": "crossSection",
+        "unit": "barn",
+        "grid": { "values": [1,2,3] }
+      },
+      {
+        "label": "crossSection",
+        "grid": { "values": [1,2,3] }
+      }
+    ]
+}

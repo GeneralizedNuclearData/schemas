@@ -1,0 +1,16 @@
+{
+  "crossSection": {
+    "eval": {
+      "interpolation": "lin-log",
+      "pairs": {
+        "values": [1,4,6]
+      }
+    },
+    "recon": {
+      "interpolation": "flat",
+      "pairs": {
+        "values": [2,4,6]
+      }
+    }
+  }
+}

@@ -1,0 +1,10 @@
+{
+  "XYs1d": {
+    "interpolation": "lin-lin",
+    "pairs": {
+      "values": [1,2,3,4]
+    },
+    "axes": {
+    }
+  }
+}

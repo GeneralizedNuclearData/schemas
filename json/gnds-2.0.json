@@ -6,20 +6,44 @@
   "title": "GNDS JSON schema",
   "description": "Schema for a GNDS JSON object",
   "properties":{
-    "crossSection": {"$ref": "#/definitions/crossSection" },
-    "functional": {"$ref": "#/definitions/functional" },
-    "reaction": {"$ref": "#/definitions/reaction" },
-    "text": {"$ref": "#/definitions/text" },
-    "XYs1d": {"$ref": "#/definitions/XYs1d" },
-    "values": {"$ref": "#/definitions/values" }
+    "axes": {"$ref": "#/definitions/axes" }
   },
-  "definitions":{
+  "required": [ "axes" ],
+  "definitions": {
+    "axes": {
+      "description": "Mechanism for providing label an unit for every axis.",
+      "type": "array",
+      "oneOf": [
+        {
+          "items": { "$ref": "#/definitions/axis" }
+        },
+        {
+          "items": { "$ref": "#/definitions/grid" }
+        }
+      ]
+    },
+    "axis": {
+      "description": "label and unit for each axis",
+      "type": "object",
+      "properties": {
+        "label": {
+          "type": "string",
+          "attribute": true
+        },
+        "unit": {
+          "type": "string",
+          "attribute": true
+        }
+      },
+      "required": [ "label" ],
+      "additionalProperties": false
+    },
     "crossSection": {
       "properties": {
         "eval": { 
           "anyOf": [
             { "$ref": "#definitions/XYs1d" },
-            { "$ref": "#definitions/regions" },
+            { "$ref": "#definitions/regions1d" },
             { "$ref": "#definitions/urrProbabilityTable" },
             { "$ref": "#definitions/resonanceRegionLink" }
           ]
@@ -27,15 +51,13 @@
         "documentation": { "$ref": "#/definitions/documentation" }
       },
       "required": [ "eval" ],
-      "patternProperties": {
-        ".*": {
-          "anyOf": [
-            { "$ref": "#definitions/XYs1d" },
-            { "$ref": "#definitions/regions" },
-            { "$ref": "#definitions/urrProbabilityTable" },
-            { "$ref": "#definitions/resonanceRegionLink" }
-          ]
-        }
+      "additionalProperties": {
+        "anyOf": [
+          { "$ref": "#definitions/XYs1d" },
+          { "$ref": "#definitions/regions1d" },
+          { "$ref": "#definitions/urrProbabilityTable" },
+          { "$ref": "#definitions/resonanceRegionLink" }
+        ]
       }
     },
     "functional": {
@@ -51,10 +73,35 @@
           "enum": [ "Float64", "Integer64", "Integer32", "UInteger32", "Fraction32" ],
           "default": "Float64",
           "attribute": true
-        },
-        "axes": { "$ref": "#/definitions/axes" },
-        "uncertainty": { "$ref": "#/definitions/uncertainty" }
+        }
       }
+    },
+    "grid": {
+      "description": "grid axis",
+      "type": "object",
+      "properties": {
+        "interpolation": {
+          "type": "string",
+          "attribute": true
+        },
+        "style": {
+          "type": "string",
+          "enum": [ "none", "points", "boundaries", "parameters" ],
+          "default": "none",
+          "attribute": true
+        },
+        "label": {
+          "type": "string",
+          "attribute": true
+        },
+        "unit": {
+          "type": "string",
+          "attribute": true
+        },
+        "grid": { "$ref": "#/definitions/values" }
+      },
+      "required": [ "label", "grid" ],
+      "additionalProperties": false
     },
     "reaction": {
       "description": "A single reaction",
@@ -82,6 +129,26 @@
         { "$ref": "#/definitions/outputChannel" }
       ]
     },
+    "reactions": {
+      "type": "object",
+      "patternProperties": {
+        ".*": { "$ref": "#/definitions/reaction" }
+      }
+    },
+    "resonanceRegionLink": {
+      "type": "object"
+    },
+    "regions1d": {
+      "description": "A region",
+      "type": "object",
+      "allOf": [
+        {
+          "properties": {
+            "XYs1d": { "$ref": "#/definitions/XYs1d" }
+          }
+        }
+      ]
+    },
     "text": {
       "description": "Store a sequence of characters",
       "type": "object",
@@ -103,28 +170,13 @@
         }
       }
     },
-    "XYs1d": {
-      "description": "A tabulated uni-variate functional",
-      "type": "object",
-      "allOf": [
-        { 
-          "properties":{
-            "interpolation": {
-              "type": "string",
-              "enum": [ "lin-lin", "lin-log", "log-log", "flat" ],
-              "default": "lin-lin",
-              "attribute": true
-            }
-          } 
-        },
-        { "$ref": "#/definitions/values" },
-        {"$ref": "#/definitions/functional" }
-      ]
+    "urrProbabilityTable": {
+      "type": "object"
     },
     "values": {
       "description": "Store a sequence of numerical values",
       "type": "object",
-      "properties":{
+      "properties": {
         "valueType":{
           "type": "string",
           "enum": [ "Float64", "Integer64", "Integer32", "UInteger32", "Fraction32" ],
@@ -147,7 +199,30 @@
           "type": "array",
           "items": { "type": "integer" }
         }
-      }
+      },
+      "required": [ "values" ],
+      "additionalProperties": false
+    },
+    "XYs1d": {
+      "description": "A tabulated uni-variate functional",
+      "type": "object",
+      "allOf": [
+        { 
+          "properties":{
+            "interpolation": {
+              "type": "string",
+              "enum": [ "lin-lin", "lin-log", "log-log", "flat" ],
+              "default": "lin-lin",
+              "attribute": true
+            },
+            "pairs": { "$ref": "#/definitions/values" },
+            "axes": { "$ref": "#/definitions/axes" }
+          } ,
+          "required": [ "pairs" ],
+          "additionalProperties": false
+        },
+        { "$ref": "#/definitions/functional" }
+      ]
     }
   }
 }

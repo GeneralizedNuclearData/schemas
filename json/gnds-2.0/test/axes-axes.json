@@ -1,0 +1,17 @@
+{
+  "axes-test": 
+    [
+      { 
+        "label": "energy_in",
+        "unit": "eV"
+      },
+      {
+        "label": "crossSection",
+        "unit": "barn"
+      },
+      {
+        "label": "crossSection",
+        "unit": "barn"
+      }
+    ]
+}
