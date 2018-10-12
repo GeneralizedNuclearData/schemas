@@ -1,0 +1,8 @@
+{
+  "Q": {
+    "constant": {
+      "label": "Q-value",
+      "constant": -1.5
+    }
+  }
+}

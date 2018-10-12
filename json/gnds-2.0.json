@@ -6,19 +6,8 @@
   "title": "GNDS JSON schema",
   "description": "Schema for a GNDS JSON object",
   "properties":{
-    "constant": {"$ref": "#/definitions/constant" },
-    "crossSection": {"$ref": "#/definitions/crossSection" },
-    "distributions": {"$ref": "#/definitions/distributions" },
-    "documentation": {"$ref": "#/definitions/documentation" },
-    "multiplicity": {"$ref": "#/definitions/multiplicity" },
-    "outputChannel": {"$ref": "#/definitions/outputChannel" },
-    "products": {"$ref": "#/definitions/products" },
-    "Q": {"$ref": "#/definitions/Q" },
-    "reaction": {"$ref": "#/definitions/reaction" },
-    "regions1d": {"$ref": "#/definitions/regions1d" },
-    "resonanceRegionLink": {"$ref": "#/definitions/resonanceRegionLink" },
-    "XYs1d": {"$ref": "#/definitions/XYs1d" },
-    "uncertainties": {"$ref": "#/definitions/uncertainties" }
+    "reactionSuite": {"$ref": "#/definitions/reactionSuite" },
+    "twoBody": {"$ref": "#/definitions/twoBody" }
   },
   "additionalProperties": false,
   "definitions": {
@@ -73,29 +62,43 @@
     },
     "constant1d": {
       "description": "constant1d",
-      "type": "object"
+      "type": "object",
+      "properties": {
+        "label": {
+          "type": "string",
+          "attribute": true
+        },
+        "domainMin": {
+          "type": "number",
+          "attribute": true
+        },
+        "domainMax": {
+          "type": "number",
+          "attribute": true
+        },
+        "constant": {
+          "type": "number",
+          "attribute": true
+        },
+        "axes": { "$ref": "#/definitions/axes" }
+      },
+      "additionalProperties": true
     },
     "crossSection": {
       "description": "Cross section data as a function of energy",
       "type": "array",
       "items": {
         "anyOf": [
-          { "$ref": "#definitions/XYs1d" },
-          { "$ref": "#definitions/regions1d" },
-          { "$ref": "#definitions/resonanceRegionLink" },
+          { "$ref": "#/definitions/XYs1d" },
+          { "$ref": "#/definitions/regions1d" },
+          { "$ref": "#/definitions/resonanceRegionLink" },
           { "$ref": "#/definitions/documentation" }
         ]
       },
       "minItems": 1
     },
-    "distributions": {
-      "description": "Array of distributions",
-      "type": "array",
-      "items": { "$ref": "#/definitions/distribution" },
-      "minItems": 1
-    },
     "distribution": {
-      "description": "Secondary energy-angle distributions",
+      "description": "Array of Secondary energy-angle distributions",
       "type": "array",
       "items": {
         "anyOf": [
@@ -168,6 +171,35 @@
       "description": "Secondary distribution described by Kalbach-Mann systematics",
       "type": "object"
     },
+    "Legendre": {
+      "description": "Legendre expansion",
+      "type": "object",
+      "allOf": [
+        { "$ref": "#/definitions/functional" },
+        {
+          "properties":{
+            "value": {},
+            "valueType": {},
+            "label": {},
+            "lowerIndex": {
+              "type": "integer",
+              "default": 0
+            },
+            "domainMin": {
+              "type": "number",
+              "attribute": true
+            },
+            "domainMax": {
+              "type": "number",
+              "attribute": true
+            },
+            "coefficients": { "$ref": "#/definitions/values" }
+          },
+          "required": [ "coefficients" ],
+          "additionalProperties": false
+        }
+      ]
+    },
     "multiplicity": {
       "description": "How many of a product are emitted in a reaction",
       "type": "object",
@@ -181,7 +213,7 @@
         },
         {
           "properties":{
-            "constant": { "$ref": "#/definitions/constant" }
+            "constant": { "$ref": "#/definitions/constant1d" }
           },
           "required": [ "constant" ],
           "additionalProperties": false
@@ -244,11 +276,11 @@
           "attribute": true
         },
         "documentation": { "$ref": "#/definitions/documentation" },
-        "distributions": { "$ref": "#/definitions/distributions" },
+        "distribution": { "$ref": "#/definitions/distribution" },
         "outputChannel": { "$ref": "#/definitions/outputChannel" },
         "multiplicity": { "$ref": "#/definitions/multiplicity" }
       },
-      "required": [ "pid", "label", "multiplicity", "distributions" ],
+      "required": [ "pid", "label", "multiplicity", "distribution" ],
       "additionalProperties": false
     },
     "products": {
@@ -276,12 +308,10 @@
       "description": "Q-value",
       "type": "object",
       "properties": {
-        "constant": { "$ref": "#/definitions/constant" }
+        "constant": { "$ref": "#/definitions/constant1d" }
       },
       "required": [ "constant" ],
       "additionalProperties": false
-    },
-    "reactionSuite": {
     },
     "reaction": {
       "description": "A single reaction",
@@ -317,6 +347,52 @@
         }
       },
       "required": [ "reactions" ],
+      "additionalProperties": false
+    },
+    "reactionSuite": {
+      "description": "All reactions involving the same combindation of projectile and target",
+      "type": "object",
+      "properties": {
+        "projectile": {
+          "description": "Projectile particle id.",
+          "type": "string",
+          "attribute": true
+        },
+        "target": {
+          "description": "Target particle id.",
+          "type": "string",
+          "attribute": true
+        },
+        "evaluation": {
+          "description": "Name of the evaluation, e.g. ‘ENDF-VIII’",
+          "type": "string",
+          "attribute": true
+        },
+        "format": {
+          "description": "GNDS format version, e.g. ‘2.1’",
+          "type": "string",
+          "attribute": true
+        },
+        "projectileFrame": {
+          "type": "string",
+          "enum": [ "lab", "centerOfMass" ],
+          "attribute": true
+        },
+        "reactions": { "$ref": "#/definitions/reactions" }
+      },
+      "required": [ "projectile", "target", "evaluation", "format", "projectileFrame" ],
+      "additionalProperties": false
+    },
+    "recoil": {
+      "description": "recoil node",
+      "type": "object",
+      "properties": {
+        "href": {
+          "type": "string",
+          "attribute": true
+        }
+      },
+      "required": [ "href" ],
       "additionalProperties": false
     },
     "reference": {
@@ -406,7 +482,21 @@
     },
     "twoBody": {
       "description": "Energy-angle distribution described by two-body kinematics",
-      "type": "object"
+      "type": "object",
+      "properties": {
+        "label": {
+          "type": "string",
+          "attribute": true
+        },
+        "productFrame": {
+          "type": "string",
+          "enum": [ "lab", "centerOfMass" ],
+          "attribute": true
+        },
+        "XYs2d": { "$ref": "#/definitions/XYs2d" },
+        "recoil": { "$ref": "#/definitions/recoil" }
+      },
+      "additionalProperties": false
     },
     "uncertainties": {
       "description": "Array of uncertainty data",
@@ -539,6 +629,42 @@
             "uncertainties": { "not": { "required": [ "uncertainty" ] } },
             "uncertainty": { "not": { "required": [ "uncertainties" ] } }
           }
+        }
+      ]
+    },
+    "XYs2d": {
+      "description": "A multi-variate functional",
+      "type": "object",
+      "allOf": [
+        { "$ref": "#/definitions/functional" },
+        {
+          "properties":{
+            "interpolation": {
+              "type": "string",
+              "enum": [ "lin-lin", "lin-log", "log-log", "flat" ],
+              "default": "lin-lin",
+              "attribute": true
+            },
+            "value": {},
+            "valueType": {},
+            "label": {},
+            "function": { 
+              "type": "array",
+              "items": {
+                "anyOf": [
+                  { "$ref": "#/definitions/Legendre" },
+                  { "$ref": "#/definitions/XYs1d" },
+                  { "$ref": "#/definitions/axes" },
+                  { "$ref": "#/definitions/regions1d" },
+                  { "$ref": "#/definitions/uncertainty" },
+                  { "$ref": "#/definitions/uncertainties" }
+                ]
+              },
+              "minItems": 1
+            }
+          },
+          "required": [ "function" ],
+          "additionalProperties": false
         }
       ]
     }
