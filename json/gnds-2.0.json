@@ -176,31 +176,36 @@
           "properties":{
             "XYs1d": { "$ref": "#/definitions/XYs1d" }
           },
-          "required": [ "XYs1d" ]
+          "required": [ "XYs1d" ],
+          "additionalProperties": false
         },
         {
           "properties":{
             "constant": { "$ref": "#/definitions/constant" }
           },
-          "required": [ "constant" ]
+          "required": [ "constant" ],
+          "additionalProperties": false
         },
         {
           "properties":{
             "polynomial1d": { "$ref": "#/definitions/polynomial1d" }
           },
-          "required": [ "polynomial1d" ]
+          "required": [ "polynomial1d" ],
+          "additionalProperties": false
         },
         { 
           "properties":{
             "reference": { "$ref": "#/definitions/reference" }
           },
-          "required": [ "reference" ]
+          "required": [ "reference" ],
+          "additionalProperties": false
         },
         {
           "properties":{
             "regions1d": { "$ref": "#/definitions/regions1d" }
           },
-          "required": [ "regions1d" ]
+          "required": [ "regions1d" ],
+          "additionalProperties": false
         }
       ]
     },
@@ -275,6 +280,8 @@
       },
       "required": [ "constant" ],
       "additionalProperties": false
+    },
+    "reactionSuite": {
     },
     "reaction": {
       "description": "A single reaction",
@@ -359,11 +366,15 @@
         { "$ref": "#/definitions/functional" },
         {
           "properties": {
+            "value": {},
+            "valueType": {},
+            "label": {},
             "XYs1d": { "$ref": "#/definitions/XYs1d" },
             "axes": { "$ref": "#/definitions/axes" },
             "uncertainties": { "$ref": "#/definitions/uncertainties" },
             "uncertainty": { "$ref": "#/definitions/uncertainty" }
           },
+          "additionalProperties": false,
           "dependencies": {
             "uncertainties": { "not": { "required": [ "uncertainty" ] } },
             "uncertainty": { "not": { "required": [ "uncertainties" ] } }
@@ -390,7 +401,8 @@
         "text": {
           "type": "string"
         }
-      }
+      },
+      "additionalProperties": false
     },
     "twoBody": {
       "description": "Energy-angle distribution described by two-body kinematics",
@@ -513,12 +525,16 @@
               "default": "lin-lin",
               "attribute": true
             },
+            "value": {},
+            "valueType": {},
+            "label": {},
             "pairs": { "$ref": "#/definitions/values" },
             "axes": { "$ref": "#/definitions/axes" },
             "uncertainties": { "$ref": "#/definitions/uncertainties" },
             "uncertainty": { "$ref": "#/definitions/uncertainty" }
           },
           "required": [ "pairs" ],
+          "additionalProperties": false,
           "dependencies": {
             "uncertainties": { "not": { "required": [ "uncertainty" ] } },
             "uncertainty": { "not": { "required": [ "uncertainties" ] } }
