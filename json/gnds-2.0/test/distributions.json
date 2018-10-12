@@ -1,4 +1,14 @@
 {
   "distributions":[
+    [
+      {
+        "style": "eval",
+        "productFrame": "lab"
+      },
+      {
+        "style": "eval",
+        "productFrame": "lab"
+      }
+    ]
   ]
 }

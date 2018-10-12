@@ -11,14 +11,21 @@
     "distributions": {"$ref": "#/definitions/distributions" },
     "documentation": {"$ref": "#/definitions/documentation" },
     "multiplicity": {"$ref": "#/definitions/multiplicity" },
+    "outputChannel": {"$ref": "#/definitions/outputChannel" },
     "products": {"$ref": "#/definitions/products" },
+    "Q": {"$ref": "#/definitions/Q" },
     "reaction": {"$ref": "#/definitions/reaction" },
     "regions1d": {"$ref": "#/definitions/regions1d" },
     "resonanceRegionLink": {"$ref": "#/definitions/resonanceRegionLink" },
     "XYs1d": {"$ref": "#/definitions/XYs1d" },
     "uncertainties": {"$ref": "#/definitions/uncertainties" }
   },
+  "additionalProperties": false,
   "definitions": {
+    "angularEnergy": {
+      "description": "Angular-energy distribution",
+      "type": "object"
+    },
     "axes": {
       "description": "Mechanism for providing label an unit for every axis.",
       "type": "array",
@@ -78,24 +85,36 @@
           { "$ref": "#definitions/resonanceRegionLink" },
           { "$ref": "#/definitions/documentation" }
         ]
-      }
+      },
+      "minItems": 1
     },
     "distributions": {
       "description": "Array of distributions",
       "type": "array",
-      "items": { "$ref": "#/definitions/distribution" }
+      "items": { "$ref": "#/definitions/distribution" },
       "minItems": 1
     },
     "distribution": {
-      "description": "Secondary energy-angle distributions"
+      "description": "Secondary energy-angle distributions",
       "type": "array",
       "items": {
         "anyOf": [
-        ]
+          { "$ref": "#/definitions/angularEnergy" },
+          { "$ref": "#/definitions/KalbachMann" },
+          { "$ref": "#/definitions/phaseSpace" },
+          { "$ref": "#/definitions/twoBody" },
+          { "$ref": "#/definitions/uncorrelated" },
+          { "$ref": "#/definitions/unspecified" }
+        ],
+        "minItems": 1
       }
     },
     "documentation": {
       "description": "Documentation node",
+      "type": "object"
+    },
+    "energyAngular": {
+      "description":"Tabulated energy-angular distribution",
       "type": "object"
     },
     "functional": {
@@ -144,6 +163,10 @@
       },
       "required": [ "label", "grid" ],
       "additionalProperties": false
+    },
+    "KalbachMann": {
+      "description": "Secondary distribution described by Kalbach-Mann systematics",
+      "type": "object"
     },
     "multiplicity": {
       "description": "How many of a product are emitted in a reaction",
@@ -195,6 +218,10 @@
       },
       "additionalProperties": false
     },
+    "phaseSpace": {
+      "description": "N-body phase space secondary distribution",
+      "type": "object"
+    },
     "polynomial1d": {
       "description": "1-dimensional polynomial expansion",
       "type": "object"
@@ -240,30 +267,36 @@
       "required": [ "products" ],
       "additionalProperties": false
     },
+    "Q": {
+      "description": "Q-value",
+      "type": "object",
+      "properties": {
+        "constant": { "$ref": "#/definitions/constant" }
+      },
+      "required": [ "constant" ],
+      "additionalProperties": false
+    },
     "reaction": {
       "description": "A single reaction",
       "type": "object",
-      "allOf": [
-        {
-          "properties": {
-            "ENDF_MT": {
-              "type": "integer",
-              "attribute": true
-            },
-            "label": {
-              "type": "string",
-              "attribute": true
-            },
-            "fissionGenre": {
-              "type": "string",
-              "attribute": true
-            }
-          },
-          "required": [ "label", "ENDF_MT" ]
+      "properties": {
+        "ENDF_MT": {
+          "type": "integer",
+          "attribute": true
         },
-        { "$ref": "#/definitions/crossSection" },
-        { "$ref": "#/definitions/outputChannel" }
-      ]
+        "label": {
+          "type": "string",
+          "attribute": true
+        },
+        "fissionGenre": {
+          "type": "string",
+          "attribute": true
+        },
+        "crossSection": { "$ref": "#/definitions/crossSection" },
+        "outputChannel": { "$ref": "#/definitions/outputChannel" }
+      },
+      "required": [ "label", "ENDF_MT", "crossSection", "outputChannel" ],
+      "additionalProperties": false
     },
     "reactions": {
       "description": "Array of all reactions",
@@ -359,6 +392,10 @@
         }
       }
     },
+    "twoBody": {
+      "description": "Energy-angle distribution described by two-body kinematics",
+      "type": "object"
+    },
     "uncertainties": {
       "description": "Array of uncertainty data",
       "type": "array",
@@ -408,6 +445,26 @@
         }
       },
       "required": [ "uncertainty" ],
+      "additionalProperties": false
+    },
+    "uncorrelated": {
+      "description": "Uncorrelated energy and angle secondary distribution",
+      "type": "object"
+    },
+    "unspecified": {
+      "description": "Unspecified secondary distribution",
+      "type": "object",
+      "properties": {
+        "style": {
+          "type": "string",
+          "attribute": true
+        },
+        "productFrame": {
+          "type": "string",
+          "enum": [ "lab", "centerOfMass" ],
+          "attribute": true
+        }
+      },
       "additionalProperties": false
     },
     "urrProbabilityTable": {

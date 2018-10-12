@@ -15,7 +15,19 @@
             "name": "Q",
             "value": "1.0 MeV"
           }
-        }
+        },
+        "distributions": [
+          [
+            {
+              "style": "eval",
+              "productFrame": "lab"
+            },
+            {
+              "style": "eval",
+              "productFrame": "lab"
+            }
+          ]
+        ]
       },
       { 
         "pid": "H1",
@@ -41,7 +53,19 @@
               }
             ]
           }
-        }
+        },
+        "distributions": [
+          [
+            {
+              "style": "eval",
+              "productFrame": "lab"
+            },
+            {
+              "style": "eval",
+              "productFrame": "lab"
+            }
+          ]
+        ]
       }
     ]
   }
