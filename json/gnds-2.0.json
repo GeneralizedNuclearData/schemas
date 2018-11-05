@@ -6,6 +6,7 @@
   "title": "GNDS JSON schema",
   "description": "Schema for a GNDS JSON object",
   "properties":{
+    "multiplicity": {"$ref": "#/definitions/multiplicity" },
     "reactionSuite": {"$ref": "#/definitions/reactionSuite" },
     "regions1d": {"$ref": "#/definitions/regions1d" },
     "twoBody": {"$ref": "#/definitions/twoBody" }
@@ -547,10 +548,7 @@
         },
         "uncertainty": {
           "oneOf": [
-            { "$ref": "#/definitions/XYs1d" },
-            { 
-              "href":
-            }
+            { "$ref": "#/definitions/XYs1d" }
           ]
         }
       },
@@ -605,7 +603,7 @@
         },
         "values":{
           "type": "array",
-          "items": { "type": "integer" }
+          "items": { "type": "number" }
         }
       },
       "required": [ "values" ],
