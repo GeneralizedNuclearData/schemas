@@ -7,6 +7,7 @@
   "description": "Schema for a GNDS JSON object",
   "properties":{
     "reactionSuite": {"$ref": "#/definitions/reactionSuite" },
+    "regions1d": {"$ref": "#/definitions/regions1d" },
     "twoBody": {"$ref": "#/definitions/twoBody" }
   },
   "additionalProperties": false,
@@ -436,7 +437,7 @@
       "additionalProperties" : false
     },
     "regions1d": {
-      "description": "A region",
+      "description": "An array of XYs1d data, with some other metadata",
       "type": "object",
       "allOf": [
         { "$ref": "#/definitions/functional" },
@@ -445,12 +446,16 @@
             "value": {},
             "valueType": {},
             "label": {},
-            "XYs1d": { "$ref": "#/definitions/XYs1d" },
+            "XYs1d": { 
+              "type": "array",
+              "items": { "$ref": "#/definitions/XYs1d" }
+            },
             "axes": { "$ref": "#/definitions/axes" },
             "uncertainties": { "$ref": "#/definitions/uncertainties" },
             "uncertainty": { "$ref": "#/definitions/uncertainty" }
           },
           "additionalProperties": false,
+          "requiredProperties": "XYs1d",
           "dependencies": {
             "uncertainties": { "not": { "required": [ "uncertainty" ] } },
             "uncertainty": { "not": { "required": [ "uncertainties" ] } }
@@ -542,7 +547,10 @@
         },
         "uncertainty": {
           "oneOf": [
-            { "$ref": "#/definitions/XYs1d" }
+            { "$ref": "#/definitions/XYs1d" },
+            { 
+              "href":
+            }
           ]
         }
       },
@@ -573,6 +581,7 @@
       "type": "object"
     },
     "values": {
+      "id": "#values",
       "description": "Store a sequence of numerical values",
       "type": "object",
       "properties": {
